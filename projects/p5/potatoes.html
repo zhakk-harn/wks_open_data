@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #repack-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-family: sans-serif;
+            transition: background-color 0.2s;
+        }
+
+        #repack-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="/libs/p5/p5.min.js"></script>
+</head>
+
+<body>
+    <script>
+        let data = [
+            {
+                "label": 0,
+                "value": 24000.308333427476512
+            },
+            {
+                "label": 1,
+                "value": 19970.711642566101
+            },
+            {
+                "label": 2,
+                "value": 9103.2857086249064
+            },
+            {
+                "label": 3,
+                "value": 11904.6668693779354
+            },
+            {
+                "label": 4,
+                "value": 470.82180345596587
+            },
+            {
+                "label": 5,
+                "value": 7950.253971194192
+            },
+            {
+                "label": 6,
+                "value": 10008.1246777559116
+            },
+            {
+                "label": 7,
+                "value": 5203.7330708039982
+            },
+            {
+                "label": 8,
+                "value": 17300.3479326327388
+            },
+            {
+                "label": 9,
+                "value": 17205.595170764526
+            }
+        ];
+
+        let potatoes = [];
+        let draggedPotato = null;
+        let pOffsetX = 0;
+        let pOffsetY = 0;
+        let showHandles = true;
+
+        class Potato {
+            constructor(d) {
+                this.label = d.label;
+                this.area = d.value;
+                let diameter = 2 * Math.sqrt(this.area / Math.PI);
+                this.w = diameter;
+                this.h = diameter;
+                this.x = random(this.w / 2, windowWidth - this.w / 2);
+                this.y = random(this.h / 2, windowHeight - this.h / 2);
+                this.col = color(random(100, 255), random(100, 255), random(100, 255));
+                this.isDragging = false;
+                this.isStretchingX = false;
+                this.isStretchingY = false;
+            }
+
+            display() {
+                stroke(0);
+                strokeWeight(1);
+                fill(this.col);
+                ellipse(this.x, this.y, this.w, this.h);
+
+                // Draw handles
+                if (showHandles) {
+                    fill(255);
+                    stroke(0);
+                    strokeWeight(1);
+                    rectMode(CENTER);
+                    rect(this.x + this.w / 2, this.y, 8, 8); // Right handle
+                    rect(this.x, this.y + this.h / 2, 8, 8); // Bottom handle
+                    rectMode(CORNER);
+                }
+
+                fill(0);
+                noStroke();
+                textAlign(CENTER, CENTER);
+                text(this.label, this.x, this.y);
+            }
+
+            contains(px, py) {
+                let dx = px - this.x;
+                let dy = py - this.y;
+                let a = this.w / 2;
+                let b = this.h / 2;
+                return (dx * dx) / (a * a) + (dy * dy) / (b * b) <= 1;
+            }
+
+            overRightHandle(px, py) {
+                return dist(px, py, this.x + this.w / 2, this.y) < 8;
+            }
+
+            overBottomHandle(px, py) {
+                return dist(px, py, this.x, this.y + this.h / 2) < 8;
+            }
+        }
+
+        let repackBtn;
+
+        function repack() {
+            potatoes.sort((a, b) => b.area - a.area);
+            let cx = windowWidth / 2;
+            let cy = windowHeight / 2;
+
+            for (let i = 0; i < potatoes.length; i++) {
+                let p = potatoes[i];
+                if (i === 0) {
+                    p.x = cx;
+                    p.y = cy;
+                } else {
+                    let placed = false;
+                    let r = 1;
+                    let angle = 0;
+
+                    while (!placed) {
+                        let testX = cx + r * cos(angle);
+                        let testY = cy + r * sin(angle);
+
+                        let overlap = false;
+                        for (let j = 0; j < i; j++) {
+                            let other = potatoes[j];
+                            let dx = testX - other.x;
+                            let dy = testY - other.y;
+
+                            // Ellipse collision approximation based on combined bounding extents
+                            let a = p.w / 2 + other.w / 2 + 4; // 4px padding
+                            let b = p.h / 2 + other.h / 2 + 4;
+
+                            if ((dx * dx) / (a * a) + (dy * dy) / (b * b) <= 1) {
+                                overlap = true;
+                                break;
+                            }
+                        }
+
+                        if (!overlap) {
+                            p.x = testX;
+                            p.y = testY;
+                            placed = true;
+                        } else {
+                            angle += 0.2;
+                            if (angle > TWO_PI) {
+                                angle -= TWO_PI;
+                                r += 5; // spiral out slightly faster
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+
+            repackBtn = createButton('repack');
+            repackBtn.id('repack-btn');
+            repackBtn.style('position', 'fixed');
+            repackBtn.style('top', '10px');
+            repackBtn.style('left', '10px');
+            repackBtn.style('z-index', '100');
+            repackBtn.mousePressed(repack);
+
+            for (let i = 0; i < data.length; i++) {
+                potatoes.push(new Potato(data[i]));
+            }
+
+            repack();
+        }
+
+        function draw() {
+            background(240);
+            for (let i = 0; i < potatoes.length; i++) {
+                potatoes[i].display();
+            }
+        }
+
+        function mousePressed() {
+            for (let i = potatoes.length - 1; i >= 0; i--) {
+                let p = potatoes[i];
+                if (showHandles && p.overRightHandle(mouseX, mouseY)) {
+                    draggedPotato = p;
+                    p.isStretchingX = true;
+                    potatoes.push(potatoes.splice(i, 1)[0]);
+                    break;
+                } else if (showHandles && p.overBottomHandle(mouseX, mouseY)) {
+                    draggedPotato = p;
+                    p.isStretchingY = true;
+                    potatoes.push(potatoes.splice(i, 1)[0]);
+                    break;
+                } else if (p.contains(mouseX, mouseY)) {
+                    draggedPotato = p;
+                    p.isDragging = true;
+                    pOffsetX = mouseX - p.x;
+                    pOffsetY = p.y - mouseY; // wait, pOffsetX = mouseX - p.x => p.x = mouseX - pOffsetX. earlier it was mouseX - p.x.
+                    potatoes.push(potatoes.splice(i, 1)[0]);
+                    break;
+                }
+            }
+        }
+
+        function mouseDragged() {
+            if (draggedPotato) {
+                if (draggedPotato.isStretchingX) {
+                    let newW = (mouseX - draggedPotato.x) * 2;
+                    newW = max(newW, 10);
+                    let newH = (draggedPotato.area * 4) / (Math.PI * newW);
+                    draggedPotato.w = newW;
+                    draggedPotato.h = newH;
+                } else if (draggedPotato.isStretchingY) {
+                    let newH = (mouseY - draggedPotato.y) * 2;
+                    newH = max(newH, 10);
+                    let newW = (draggedPotato.area * 4) / (Math.PI * newH);
+                    draggedPotato.w = newW;
+                    draggedPotato.h = newH;
+                } else if (draggedPotato.isDragging) {
+                    // correct earlier mistake: pOffsetX was mouseX - p.x.
+                    // wait, earlier we had: pOffsetX = mouseX - draggedPotato.x; pOffsetY = mouseY - draggedPotato.y;
+                    // draggedPotato.x = mouseX - pOffsetX; etc...
+                    // let's do the simplest:
+                    // diffX = mouseX - pmouseX;
+                    draggedPotato.x += (mouseX - pmouseX);
+                    draggedPotato.y += (mouseY - pmouseY);
+                }
+            }
+        }
+
+        function mouseReleased() {
+            if (draggedPotato) {
+                draggedPotato.isDragging = false;
+                draggedPotato.isStretchingX = false;
+                draggedPotato.isStretchingY = false;
+                draggedPotato = null;
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+
+        function keyPressed() {
+            if (key === 'r' || key === 'R') {
+                showHandles = !showHandles;
+            }
+        }
+    </script>
+</body>
+
+</html>

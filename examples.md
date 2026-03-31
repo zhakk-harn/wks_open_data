@@ -1,0 +1,7 @@
+- wind: https://earth.nullschool.net/#current/wind/surface/level/orthographic=-37.68,25.11,430
+- UI inspire de Neon Genesis Evangelion pour les seismographes de l'Agence de météorologie, climatologie et géophysique d'Indonésie: https://ews-concept.pages.dev/
+- Rabbit un navigateur pour wikipedia : https://valentindupas.com/projects/rabbit/
+- Carte des reseaux ferrovaire : https://www.openrailwaymap.org/
+- Conso et production electrique : https://app.electricitymaps.com/map/live/fifteen_minutes
+- Article interactif : https://ncase.me/fireflies/
+- Carte des sattellites : https://satellitemap.space/
