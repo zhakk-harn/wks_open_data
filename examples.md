@@ -5,3 +5,6 @@
 - Conso et production electrique : https://app.electricitymaps.com/map/live/fifteen_minutes
 - Article interactif : https://ncase.me/fireflies/
 - Carte des sattellites : https://satellitemap.space/
+- la carte des kebabs de paris : https://www.youtube.com/watch?v=ZPmQJz-ZPwQ
+
+- une liste de visualisations relativement generique, mais c'est toujours sympa de savoir ce qu'il se fait : https://datavizproject.com/

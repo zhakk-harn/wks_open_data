@@ -39,3 +39,5 @@ const subStrings = maString.split(",");
 ```
 
 //TODO a continuer
+
+## regex(?)

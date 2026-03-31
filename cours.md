@@ -46,6 +46,12 @@ https://available-anaconda-10d.notion.site/That-Creative-Code-Page-c5550ef2f7574
 
 #### D3
 
+#### Librairies d'animation
+
+https://animejs.com/
+https://gsap.com/
+https://motion.dev/
+
 #### Raw Graph
 
 # Learning Paths
