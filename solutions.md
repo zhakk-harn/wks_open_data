@@ -94,3 +94,72 @@ function draw() {
   }
 }
 ```
+
+# 5
+```js
+let dataset = [];
+
+
+fetch("etablissements-cinematographiques.json")
+  .then((res) => res.json())
+  .then((cinemas) => {
+    let departments = [];
+
+    for (let i = 0; i < cinemas.length; i++) {
+      const department = parseInt(cinemas[i].dep);
+
+      if (!departments[department]) {
+        departments[department] = { dep: department, cinemas: [] };
+      }
+
+      departments[department].cinemas.push(cinemas[i]);
+    }
+
+
+
+    // log intermediaire pour verifier la forme apres premiere transformation
+    console.log(departments);
+
+    // reponse a la pemiere partie de la question
+    const sortedDepartments = departments.toSorted((a, b) => b.cinemas.length - a.cinemas.length);
+    console.log(sortedDepartments);
+
+    for (let i = 0; i < sortedDepartments.length; i++) {
+      if (!sortedDepartments[i]) {
+        continue;
+      }
+
+      let totalEntrees = 0;
+      let totalEntreesAmericaines = 0;
+      let totalEntreesEuropeennes = 0;
+      let totalEntreesFrancais = 0;
+      let totalEntreesAutre = 0;
+
+      for (let j = 0; j < sortedDepartments[i].cinemas.length; j++) {
+        totalEntrees += sortedDepartments[i].cinemas[j].entrees_2022;
+        totalEntreesAmericaines += sortedDepartments[i].cinemas[j].entrees_2022 * sortedDepartments[i].cinemas[j].pdm_en_entrees_des_films_americains / 100;
+        totalEntreesEuropeennes += sortedDepartments[i].cinemas[j].entrees_2022 * sortedDepartments[i].cinemas[j].pdm_en_entrees_des_films_europeens / 100;
+        totalEntreesFrancais += sortedDepartments[i].cinemas[j].entrees_2022 * sortedDepartments[i].cinemas[j].pdm_en_entrees_des_films_francais / 100;
+        totalEntreesAutre += sortedDepartments[i].cinemas[j].entrees_2022 * sortedDepartments[i].cinemas[j].pdm_en_entrees_des_autres_films / 100;
+      }
+
+      console.log({ totalEntrees, totalEntreesAmericaines, totalEntreesAutre, totalEntreesEuropeennes, totalEntreesFrancais });
+
+
+      sortedDepartments[i].entrees_2022 = totalEntrees;
+      sortedDepartments[i].pdm_en_entrees_des_films_americains = totalEntreesAmericaines / totalEntrees * 100;
+      sortedDepartments[i].pdm_en_entrees_des_films_europeens = totalEntreesEuropeennes / totalEntrees * 100;
+      sortedDepartments[i].pdm_en_entrees_des_films_francais = totalEntreesFrancais / totalEntrees * 100;
+      sortedDepartments[i].pdm_en_entrees_des_autres_films = totalEntreesAutre / totalEntrees * 100;
+    }
+
+    console.log(sortedDepartments);
+
+    dataset = sortedDepartments;
+  })
+  .catch((err) => console.error(err));
+
+function draw() {
+  // je vous laisse le choix dans le mode de representation
+}
+```
