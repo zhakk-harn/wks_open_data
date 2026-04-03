@@ -12,7 +12,7 @@ Tout est a faire dans p5-espress (aucun traitement à faire via nodejs)
 
 4.Représenter les cinémas par des cercles avec, en texte, l'addresse (ou au moin une info qui nous permet de le reconnaitre). 
   - position en X = la population de la commune 
-  - position en Y = le nombre de séance
+  - position en Y = le nombre d'entrees
   - bonus : quand je passe ma souris sur un nom tous les autres devraient s'afficher avec moins de contraste pour que je puisse mieux voir celui qui est proche de ma souris
 
 5.Grouper les cinémas par département de sorte à ce que notre dataset soit maintenant un array de la forme suivante
