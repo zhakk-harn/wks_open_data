@@ -2,20 +2,20 @@
 
 Tout est a faire dans p5-espress (aucun traitement à faire via nodejs)
 
-- S'afficher dans la console les 5 premiers éléments de `etablissements-cinematographiques.json` trouvé à https://data.culturecommunication.gouv.fr/explore/dataset/etablissements-cinematographiques/export/
+1.S'afficher dans la console les 5 premiers éléments de `etablissements-cinematographiques.json` trouvé à https://data.culturecommunication.gouv.fr/explore/dataset/etablissements-cinematographiques/export/
   - fetch : https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
   - JSON.parse : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
   - Array.slice : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
-- Trier le dataset par revenus et s'afficher les 10 premiers
+2.Trier le dataset par ~~revenus~~ nombre décroissant de séances et s'afficher les 10 premiers
   - Array.toSorted : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted
-- Trouver la part de marché moyenne pour les films américains
+3.Trouver la part de marché moyenne pour les films américains tout cinémas confondus
 
-- Représenter les cinémas par des cercles avec, en texte, l'addresse (ou au moin une info qui nous permet de le reconnaitre). 
+4.Représenter les cinémas par des cercles avec, en texte, l'addresse (ou au moin une info qui nous permet de le reconnaitre). 
   - position en X = la population de la commune 
   - position en Y = le nombre de séance
   - bonus : quand je passe ma souris sur un nom tous les autres devraient s'afficher avec moins de contraste pour que je puisse mieux voir celui qui est proche de ma souris
 
-- Grouper les cinémas par département de sorte à ce que notre dataset soit maintenant un array de la forme suivante
+5.Grouper les cinémas par département de sorte à ce que notre dataset soit maintenant un array de la forme suivante
 ```js
 [
   [], // departement 00 qui n'existe pas donc array vide pour cette adresse
