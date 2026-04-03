@@ -6,7 +6,7 @@ Tout est a faire dans p5-espress (aucun traitement à faire via nodejs)
   - fetch : https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
   - JSON.parse : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
   - Array.slice : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
-2.Trier le dataset par ~~revenus~~ nombre décroissant de séances et s'afficher les 10 premiers
+2.Trier le dataset par ~~revenus~~ nombre décroissant d'entree et s'afficher les 10 premiers
   - Array.toSorted : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted
 3.Trouver la part de marché moyenne pour les films américains tout cinémas confondus
 
