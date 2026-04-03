@@ -4,7 +4,7 @@
 
 - HATVP : https://www.hatvp.fr/
 - https://www.data.gouv.fr/
-    - Les cinemas (merci Cylian) : https://data.culturecommunication.gouv.fr/explore/dataset/etablissements-cinematographiques/export/
+    - Les cinemas (merci Cylian pour le dataset de qualite) : https://data.culturecommunication.gouv.fr/explore/dataset/etablissements-cinematographiques/export/
 - https://www.regardscitoyens.org/open-data-en-france/
 - Le registre des arbres à Berlin : https://hub.arcgis.com/datasets/esri-de-content::baumkataster-berlin/explore?location=52.516033%2C13.377780%2C18
 
