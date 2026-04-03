@@ -19,13 +19,18 @@ Tout est a faire dans p5-espress (aucun traitement à faire via nodejs)
 
 5.Grouper les cinémas par département de sorte à ce que notre dataset soit maintenant un array de la forme suivante
 ```js
-[
-  [], // departement 00 qui n'existe pas donc array vide pour cette adresse
-  [/*...*/], // departement 01
-  [/*...*/], // departement 02
-  [/*...*/], // departement 03
-  [/*...*/], // departement 04
-  /*etc...*/
+​[
+{ dep: 75, cinemas: [/*...*/]}​,
+{ dep: 13, cinemas: [/*...*/]},
+{ dep: 44, cinemas: [/*...*/]},
+{ dep: 69, cinemas: [/*...*/]},
+{ dep: 33, cinemas: [/*...*/]},
+{ dep: 38, cinemas: [/*...*/]},
+{ dep: 59, cinemas: [/*...*/]},
+{ dep: 6,  cinemas: [/*...*/]},
+{ dep: 73, cinemas: [/*...*/]},
+{ dep: 74, cinemas: [/*...*/]},
+/*...*/
 ]
 ```
   - trouvez le nombre de cinémas par département et afficher la liste des départements par ordre décroissant de cinemas
