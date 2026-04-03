@@ -6,14 +6,16 @@ Tout est a faire dans p5-espress (aucun traitement à faire via nodejs)
   - fetch : https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
   - JSON.parse : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
   - Array.slice : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+
 2.Trier le dataset par ~~revenus~~ nombre décroissant d'entree et s'afficher les 10 premiers
   - Array.toSorted : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted
+
 3.Trouver la part de marché moyenne pour les films américains tout cinémas confondus
 
 4.Représenter les cinémas par des cercles avec, en texte, l'addresse (ou au moin une info qui nous permet de le reconnaitre). 
   - position en X = la population de la commune 
   - position en Y = le nombre d'entrees
-  - bonus : quand je passe ma souris sur un nom tous les autres devraient s'afficher avec moins de contraste pour que je puisse mieux voir celui qui est proche de ma souris
+  <!-- - bonus : quand je passe ma souris sur un nom tous les autres devraient s'afficher avec moins de contraste pour que je puisse mieux voir celui qui est proche de ma souris -->
 
 5.Grouper les cinémas par département de sorte à ce que notre dataset soit maintenant un array de la forme suivante
 ```js
